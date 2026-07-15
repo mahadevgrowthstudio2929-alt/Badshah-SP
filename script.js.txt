@@ -1,0 +1,100 @@
+// ===============================
+// Premium Landing Page Script
+// ===============================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    // Smooth fade-in animation
+    const card = document.querySelector(".card");
+
+    if (card) {
+        card.style.opacity = "0";
+        card.style.transform = "translateY(40px)";
+
+        setTimeout(() => {
+            card.style.transition = "all 0.8s ease";
+            card.style.opacity = "1";
+            card.style.transform = "translateY(0)";
+        }, 200);
+    }
+
+    // CTA Pulse Effect
+    const btn = document.querySelector(".cta");
+
+    if (btn) {
+        setInterval(() => {
+            btn.animate([
+                { transform: "scale(1)" },
+                { transform: "scale(1.06)" },
+                { transform: "scale(1)" }
+            ], {
+                duration: 1200,
+                easing: "ease-in-out"
+            });
+        }, 2500);
+    }
+
+    // Mouse Parallax Effect
+    document.addEventListener("mousemove", (e) => {
+
+        const x = (window.innerWidth / 2 - e.clientX) / 40;
+        const y = (window.innerHeight / 2 - e.clientY) / 40;
+
+        if (card) {
+            card.style.transform =
+                `rotateY(${x}deg) rotateX(${-y}deg)`;
+        }
+
+    });
+
+    document.addEventListener("mouseleave", () => {
+        if (card) {
+            card.style.transform =
+                "rotateX(0deg) rotateY(0deg)";
+        }
+    });
+
+    // Floating Background Glow
+    const bg = document.querySelector(".bg");
+
+    let angle = 0;
+
+    setInterval(() => {
+
+        angle += 1;
+
+        if (bg) {
+            bg.style.background =
+                `radial-gradient(circle at ${50 + Math.sin(angle / 25) * 20}% ${40 + Math.cos(angle / 25) * 20}%,
+                rgba(0,255,150,0.25),
+                transparent 40%),
+                linear-gradient(135deg,#07110d,#0b1b15,#07110d)`;
+        }
+
+    }, 60);
+
+    // Feature Cards Hover Animation
+    document.querySelectorAll(".grid div").forEach(card => {
+
+        card.addEventListener("mouseenter", () => {
+            card.style.transform = "translateY(-8px) scale(1.05)";
+        });
+
+        card.addEventListener("mouseleave", () => {
+            card.style.transform = "translateY(0px) scale(1)";
+        });
+
+    });
+
+    // Smooth Button Click
+    if (btn) {
+
+        btn.addEventListener("click", () => {
+
+            btn.innerHTML = "🚀 Redirecting...";
+
+        });
+
+    }
+
+});
